@@ -19,3 +19,24 @@ function printTasks(taskArray) {
     }
 }
 printTasks(tasks);
+
+function addTask(title) {
+    const newTask = {
+        id: Date.now(),
+        title: title,
+        done: false
+    };
+    tasks.push(newTask);
+    return newTask;
+}
+
+
+function toggleTaskDone(id) {
+    for (const task of tasks) {
+        if (task.id === id) {
+            task.done = !task.done;
+            return task;
+        }
+    }
+    return null;
+}
