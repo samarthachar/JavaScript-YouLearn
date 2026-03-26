@@ -40,3 +40,19 @@ function toggleTaskDone(id) {
     }
     return null;
 }
+
+function getDoneTasks() {
+    return tasks.filter(t => t.done === true);
+}
+
+function findTaskById(id) {
+    return tasks.find(t => t.id === id);
+}
+
+function getTitles() {
+    return tasks.map(t => t.title);
+}
+
+console.log(getTitles());
+console.log(getDoneTasks());
+console.log(findTaskById(1));
