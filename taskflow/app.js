@@ -56,3 +56,18 @@ function getTitles() {
 console.log(getTitles());
 console.log(getDoneTasks());
 console.log(findTaskById(1));
+
+const taskListEl = document.querySelector("#taskList");
+const taskInputEl = document.querySelector("#taskInput");
+const addBtnEl = document.querySelector("#addBtn");
+
+function renderTasks() {
+    taskListEl.innerHTML = "";
+    for (const task of tasks) {
+        const li = document.createElement("li");
+            li.textContent = task.done ? `✅ ${task.title}` : `⬜ ${task.title}`;
+            taskListEl.appendChild(li);
+        }
+    }
+    
+renderTasks();
