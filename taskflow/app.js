@@ -61,22 +61,42 @@ const taskListEl = document.querySelector("#taskList");
 const taskInputEl = document.querySelector("#taskInput");
 const addBtnEl = document.querySelector("#addBtn");
 
+function deleteTask(id) {
+    const index = tasks.findIndex(t => t.id === id);
+    if (index !== -1) tasks.splice(index, 1);
+}
+
 function renderTasks() {
     taskListEl.innerHTML = "";
+
     for (const task of tasks) {
         const li = document.createElement("li");
-            li.textContent = task.done ? `✅ ${task.title}` : `⬜ ${task.title}`;
-            taskListEl.appendChild(li);
-        }
+
+        const titleSpan = document.createElement("span");
+        titleSpan.textContent = task.done
+            ? `✅ ${task.title}`
+            : `⬜ ${task.title}`;
+
+        const toggleBtn = document.createElement("button");
+        toggleBtn.textContent = "Toggle";
+        toggleBtn.addEventListener("click", () => {
+            toggleTaskDone(task.id);
+            renderTasks();
+        });
+
+        const delBtn = document.createElement("button");
+        delBtn.textContent = "Delete";
+        delBtn.addEventListener("click", () => {
+            deleteTask(task.id);
+            renderTasks();
+        });
+
+        li.appendChild(titleSpan);
+        li.appendChild(toggleBtn);
+        li.appendChild(delBtn);
+
+        taskListEl.appendChild(li);
     }
+}
 
-renderTasks();
-
-addBtnEl.addEventListener("click", () => {
-    const title = taskInputEl.value.trim();
-    if (title.length === 0) return;
-        
-    addTask(title);
-    taskInputEl.value = "";
-    renderTasks();
-});
+renderTasks()
