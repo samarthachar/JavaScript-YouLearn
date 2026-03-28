@@ -69,5 +69,14 @@ function renderTasks() {
             taskListEl.appendChild(li);
         }
     }
-    
+
 renderTasks();
+
+addBtnEl.addEventListener("click", () => {
+    const title = taskInputEl.value.trim();
+    if (title.length === 0) return;
+        
+    addTask(title);
+    taskInputEl.value = "";
+    renderTasks();
+});
