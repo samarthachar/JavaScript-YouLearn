@@ -66,6 +66,7 @@ function deleteTask(id) {
     if (index !== -1) tasks.splice(index, 1);
 }
 
+
 function renderTasks() {
     taskListEl.innerHTML = "";
 
@@ -100,3 +101,12 @@ function renderTasks() {
 }
 
 renderTasks()
+
+addBtnEl.addEventListener("click", () => {
+    const title = taskInputEl.value.trim();
+    if (title.length === 0) return;
+
+    addTask(title);
+    taskInputEl.value = "";
+    renderTasks();
+});
