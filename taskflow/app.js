@@ -27,6 +27,7 @@ function addTask(title) {
         done: false
     };
     tasks.push(newTask);
+    saveTasks();
     return newTask;
 }
 
@@ -35,6 +36,7 @@ function toggleTaskDone(id) {
     for (const task of tasks) {
         if (task.id === id) {
             task.done = !task.done;
+            saveTasks();
             return task;
         }
     }
@@ -64,6 +66,7 @@ const addBtnEl = document.querySelector("#addBtn");
 function deleteTask(id) {
     const index = tasks.findIndex(t => t.id === id);
     if (index !== -1) tasks.splice(index, 1);
+    saveTasks();
 }
 
 
@@ -100,8 +103,6 @@ function renderTasks() {
     }
 }
 
-renderTasks()
-
 addBtnEl.addEventListener("click", () => {
     const title = taskInputEl.value.trim();
     if (title.length === 0) return;
@@ -110,3 +111,19 @@ addBtnEl.addEventListener("click", () => {
     taskInputEl.value = "";
     renderTasks();
 });
+
+function saveTasks() {
+    localStorage.setItem("taskflow_tasks", JSON.stringify(tasks));
+}
+
+function loadTasks() {
+    const raw = localStorage.getItem("taskflow_tasks");
+    if (!raw) return;
+
+    const loaded = JSON.parse(raw);
+    tasks.length = 0;
+    tasks.push(...loaded);
+}
+
+loadTasks();
+renderTasks();
