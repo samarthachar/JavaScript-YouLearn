@@ -41,7 +41,7 @@ function toggleTaskDone(id) {
         }
     }
     return null;
-}
+}  
 
 function getDoneTasks() {
     return tasks.filter(t => t.done === true);
