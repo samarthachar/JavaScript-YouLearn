@@ -1,0 +1,1 @@
+This Course is to help me understand how to read JS
